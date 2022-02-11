@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const Tabs = (topics) => {
+
   // TASK 3
   // ---------------------
   // Implement this function which takes an array of strings ("topics") as its only argument.
@@ -14,29 +14,39 @@ const Tabs = (topics) => {
   //   <div class="tab">bootstrap</div>
   //   <div class="tab">technology</div>
   // </div>
+
+  const Tabs = (topics) => {
   
   const allTopics = document.createElement('div');
   const javascript = document.createElement('div');
   const bootstrap = document.createElement('div');
   const technology = document.createElement('div');
+  const jquery = document.createElement('div');
+  const nodejs = document.createElement('div');
 
   allTopics.appendChild(javascript);
   allTopics.appendChild(bootstrap);
   allTopics.appendChild(technology);
+  allTopics.appendChild(jquery);
+  allTopics.appendChild(nodejs);
 
   allTopics.classList.add('topics');
   javascript.classList.add('tab');
   bootstrap.classList.add('tab');
   technology.classList.add('tab');
+  jquery.classList.add('tab');
+  nodejs.classList.add('tab');
 
   javascript.textContent = topics[0];
   bootstrap.textContent = topics[1];
   technology.textContent = topics[2];
+  jquery.textContent = topics[3];
+  nodejs.textContent = topics[4];
 
   return allTopics;
 }
 
-const tabsAppender = (selector) => {
+
   // TASK 4
   // ---------------------
   // Implement this function which takes a css selector as its only argument.
@@ -44,18 +54,14 @@ const tabsAppender = (selector) => {
   // Find the array of topics inside the response, and create the tabs using the Tabs component.
   // Append the tabs to the element in the DOM that matches the selector passed to the function.
   //
-
+  const tabsAppender = (selector) => {
   axios.get('http://localhost:5000/api/topics')
   .then(resp => {
-    //console.log(resp.data.topics);
-    const entryPoint = document.querySelector('.tabs-container');
-    const someTopics = resp.data.topics;
-    for (let i = 0; i < someTopics.length; i++) {
-      //console.log(someTopics[i]);
-      //entryPoint.appendChild(someTopics);
-    }
-  })
-  .catch(err => console.error(err));
+    const entryPoint = document.querySelector(selector);
+    const createdTabs = Tabs(resp.data.topics)
+    entryPoint.appendChild(createdTabs);
+    })
+  .catch(err => console.err(err));
 }
 
 export { Tabs, tabsAppender }

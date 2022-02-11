@@ -47,7 +47,7 @@ const Card = (article) => {
   return card;
 }
 
-const cardAppender = (selector) => {
+
   // TASK 6
   // ---------------------
   // Implement this function that takes a css selector as its only argument.
@@ -56,9 +56,29 @@ const cardAppender = (selector) => {
   // Create a card from each and every article object in the response, using the Card component.
   // Append each card to the element in the DOM that matches the selector passed to the function.
   
+
+  //I need to loop over each of the articles, then loop over each of the individual articles within.
+
+  const cardAppender = (selector) => {
+
   axios.get(`http://localhost:5000/api/articles`)
   .then(resp => {
-    console.log(resp);
+    // console.log(resp);
+    // console.log(resp.data.articles);
+    const entryPoint = document.querySelector(selector);
+    const data = resp.data.articles;
+    // console.log(Object.entries(resp.data.articles));
+    // console.log(data );
+
+    for (let i = 0; i < data.length; i++) {
+      const dataReturned = resp.data.articles[i];
+      console.log('data returned:', dataReturned);
+
+      dataReturned.forEach(obj => {
+        const elem = Card(obj);
+        entryPoint.appendChild(elem);
+    })
+  }
   })
   .catch(err => {
     console.log(err);
