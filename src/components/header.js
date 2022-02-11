@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 const Header = (title, date, temp) => {
   // TASK 1
   // ---------------------
@@ -27,12 +25,13 @@ const Header = (title, date, temp) => {
   theDate.classList.add('date');
   tempurature.classList.add('temp');
 
-  theDate.textContent = title;
-  mainTitle.textContent = date;
+  theDate.textContent = date;
+  mainTitle.textContent = title;
   tempurature.textContent = temp;
 
   return header;
 }
+
 
 const headerAppender = (selector) => {
   // TASK 2
@@ -41,8 +40,8 @@ const headerAppender = (selector) => {
   // It should create a header using the Header component above, passing arguments of your choosing.
   // It should append the header to the element in the DOM that matches the given selector.
 
+  const createHeader = Header('BloomTech Times', 'February 11, 2022', '12°');
   const entryPoint = document.querySelector('.header-container');
-  const createHeader = Header(selector);
   entryPoint.appendChild(createHeader);
 }
 
